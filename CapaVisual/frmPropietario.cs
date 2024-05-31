@@ -29,9 +29,11 @@ namespace CapaVisual
             // Inicialmente deshabilitar el botón
             GuardarPropietario.Enabled = false;
         }
+
+        // Método que se ejecuta cuando cambia el texto en alguno de los TextBox
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            // Comprobar si todos los TextBox tienen texto
+            // Habilitar el botón de guardar si todos los TextBox tienen texto  
             GuardarPropietario.Enabled = !string.IsNullOrWhiteSpace(NombresTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(ApellidosTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(CorreoTextBox.Text) &&
@@ -39,6 +41,7 @@ namespace CapaVisual
                                          !string.IsNullOrWhiteSpace(DireccionTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(DNITextBox.Text);
         }
+        // Método para guardar un nuevo propietario
         private void GuardarPropietario_Click(object sender, EventArgs e)
         {
             try
@@ -107,6 +110,7 @@ namespace CapaVisual
             }
         }
 
+        // Método para cerrar el formulario actual y abrir el formulario principal
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             MenuPrincipal formuPrincipal = new MenuPrincipal();
@@ -114,6 +118,7 @@ namespace CapaVisual
             this.Close();
         }
 
+        // Método para abrir el formulario de modificación de propietario
         private void ModificarPropietario_Click(object sender, EventArgs e)
         {
             frmModificarPropietario formuModificar = new frmModificarPropietario();

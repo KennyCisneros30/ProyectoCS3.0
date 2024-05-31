@@ -11,13 +11,16 @@ namespace CapaDatos.Interface
 {
     public class Vehiculo
     {
+        // Campo para la conexión SQL
         private readonly ConeccionSQL _conexionSQL;
 
+        // Constructor que recibe una instancia de ConeccionSQL
         public Vehiculo(ConeccionSQL conexionSQL)
         {
             _conexionSQL = conexionSQL;
         }
 
+        // Inserta un nuevo vehículo en la base de datos
         public void InsertarVehiculo(string placa, decimal valor, int año, int cilindraje, string modelo, string color, int idPropietario)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())
@@ -39,6 +42,7 @@ namespace CapaDatos.Interface
             }
         }
 
+        // Modifica un vehículo existente en la base de datos
         public void ModificarVehiculo(string placa, decimal valor, int año, int cilindraje, string modelo, string color, int idPropietario)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())
@@ -59,7 +63,7 @@ namespace CapaDatos.Interface
                 }
             }
         }
-
+        // Elimina un vehículo de la base de datos
         public void EliminarVehiculo(string placa)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())
@@ -73,6 +77,7 @@ namespace CapaDatos.Interface
             }
         }
 
+        // Busca un vehículo por su placa
         public DataTable BuscarVehiculoPorPlaca(string placa)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())

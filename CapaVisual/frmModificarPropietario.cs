@@ -8,11 +8,13 @@ namespace CapaVisual
 {
     public partial class frmModificarPropietario : Form
     {
+        // Campo para el negocio de propietarios
         private NPropietario _propietarioNegocio;
 
         public frmModificarPropietario()
         {
             InitializeComponent();
+            // Inicialización de la conexión SQL y del negocio de propietarios
             ConeccionSQL conexionSQL = new ConeccionSQL();
             Propietario propietarioRepositorio = new Propietario(conexionSQL);
             _propietarioNegocio = new NPropietario(propietarioRepositorio);
@@ -29,14 +31,14 @@ namespace CapaVisual
         }
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            // Comprobar si todos los TextBox tienen texto
+            // Habilitar los botones de guardar y eliminar si todos los TextBox tienen texto
             GuardarM.Enabled = !string.IsNullOrWhiteSpace(MNombresTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MApellidosTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MCorreoTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MTelefonoTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MDireccionTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MDNITextBox.Text);
-            EliminarPropietario.Enabled = !string.IsNullOrWhiteSpace(MNombresTextBox.Text) &&
+            EliminarPropietario.Enabled = !string.IsNullOrWhiteSpace(MNombresTextBox.Text) && // El botón de eliminar se habilita si el de guardar está habilitado
                                          !string.IsNullOrWhiteSpace(MApellidosTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MCorreoTextBox.Text) &&
                                          !string.IsNullOrWhiteSpace(MTelefonoTextBox.Text) &&
@@ -52,6 +54,7 @@ namespace CapaVisual
                     Propietario propietarioRepositorio = new Propietario(conexionSQL);
                     _propietarioNegocio = new NPropietario(propietarioRepositorio);
 
+                    // Buscar un propietario por DNI y cargar sus datos en los TextBox correspondientes
                     DataTable propietario = _propietarioNegocio.BuscarPropietarioPorDNI(MBuscarTextBox.Text);
 
                     if (propietario.Rows.Count > 0)
@@ -85,6 +88,7 @@ namespace CapaVisual
                     Propietario propietarioRepositorio = new Propietario(conexionSQL);
                     _propietarioNegocio = new NPropietario(propietarioRepositorio);
 
+                    // Modificar un propietario con los datos ingresados en los TextBox
                     _propietarioNegocio.ModificarPropietario(
                         MDNITextBox.Text,
                         MNombresTextBox.Text,
@@ -114,7 +118,7 @@ namespace CapaVisual
                 {
                     Propietario propietarioRepositorio = new Propietario(conexionSQL);
                     _propietarioNegocio = new NPropietario(propietarioRepositorio);
-
+                    // Eliminar un propietario con el DNI ingresado en el TextBox
                     _propietarioNegocio.EliminarPropietario(MDNITextBox.Text);
 
                     MessageBox.Show("Propietario eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -134,6 +138,7 @@ namespace CapaVisual
         }
         private void LimpiarTextBoxes()
         {
+            // Limpiar todos los TextBox
             MBuscarTextBox.Clear();
             MDNITextBox.Clear();
             MNombresTextBox.Clear();
@@ -145,6 +150,7 @@ namespace CapaVisual
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            // Mostrar el formulario de propietario y cerrar el actual
             frmPropietario formuPropietario = new frmPropietario();
             formuPropietario.Show();
             this.Close();

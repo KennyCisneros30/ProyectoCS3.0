@@ -11,13 +11,15 @@ namespace CapaDatos.Interface
 {
     public class Propietario
     {
+        // Campo para la conexión SQL
         private readonly ConeccionSQL _conexionSQL;
 
+        // Constructor que recibe una instancia de ConeccionSQL
         public Propietario(ConeccionSQL conexionSQL)
         {
             _conexionSQL = conexionSQL;
         }
-
+        // Inserta un nuevo propietario en la base de datos
         public void InsertarPropietario(string dni, string nombres, string apellidos, string correo, string telefono, string direccion)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())
@@ -37,6 +39,7 @@ namespace CapaDatos.Interface
                 }
             }
         }
+        // Modifica un propietario existente en la base de datos
         public void ModificarPropietario(string dni, string nombres, string apellidos, string correo, string telefono, string direccion)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())
@@ -57,6 +60,7 @@ namespace CapaDatos.Interface
             }
         }
 
+        // Elimina un propietario de la base de datos
         public void EliminarPropietario(string dni)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())
@@ -69,7 +73,7 @@ namespace CapaDatos.Interface
                 }
             }
         }
-
+        // Busca un propietario por su DNI
         public DataTable BuscarPropietarioPorDNI(string dni)
         {
             using (SqlConnection connection = _conexionSQL.AbrirConexion())

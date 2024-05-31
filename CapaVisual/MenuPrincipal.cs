@@ -15,11 +15,13 @@ namespace CapaVisual
     {
         public MenuPrincipal()
         {
+            // Constructor de la clase MenuPrincipal
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Método que se ejecuta al hacer clic en el botón button1
             frmPropietario formuPropietario = new frmPropietario();
             formuPropietario.Show();
             this.Hide();
@@ -27,6 +29,7 @@ namespace CapaVisual
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // Método que se ejecuta al hacer clic en el botón button3
             frmVehiculos formuVehiculos = new frmVehiculos();
             formuVehiculos.Show();
             this.Hide();

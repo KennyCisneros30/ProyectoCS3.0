@@ -18,6 +18,7 @@ namespace CapaVisual
         public frmModificarVehiculo()
         {
             InitializeComponent();
+            // Inicialización de la conexión SQL y del negocio de vehículos
             ConeccionSQL conexionSQL = new ConeccionSQL();
             Vehiculo vehiculoRepositorio = new Vehiculo(conexionSQL);
             NVehiculo vehiculoNegocio = new NVehiculo(vehiculoRepositorio);
@@ -35,9 +36,10 @@ namespace CapaVisual
             GuardarV.Enabled = false;
             EliminarVehiculo.Enabled = false;
         }
+        // Método que se ejecuta cuando cambia el texto en alguno de los TextBox
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            // Comprobar si todos los TextBox tienen texto
+            // Habilitar los botones de guardar y eliminar si todos los TextBox tienen texto
             GuardarV.Enabled = !string.IsNullOrWhiteSpace(MVPlacaTextBox.Text) &&
                              !string.IsNullOrWhiteSpace(MVValorTextBox.Text) &&
                              !string.IsNullOrWhiteSpace(MVAñoTextBox.Text) &&
@@ -45,9 +47,11 @@ namespace CapaVisual
                              !string.IsNullOrWhiteSpace(MVModeloTextBox.Text) &&
                              !string.IsNullOrWhiteSpace(MVColorTextBox.Text) &&
                              !string.IsNullOrWhiteSpace(MVDNITextBox.Text);
+            // Habilitar el botón de eliminar si el TextBox de la placa tiene texto
             EliminarVehiculo.Enabled = !string.IsNullOrWhiteSpace(MVPlacaTextBox.Text);
         }
 
+        // Método para buscar un vehículo por placa
         private void BuscarPlaca_Click(object sender, EventArgs e)
         {
             try
@@ -57,6 +61,7 @@ namespace CapaVisual
                     Vehiculo vehiculoRepositorio = new Vehiculo(conexionSQL);
                     NVehiculo vehiculoNegocio = new NVehiculo(vehiculoRepositorio);
 
+                    // Buscar un vehículo por placa y cargar sus datos en los TextBox correspondientes
                     DataTable vehiculo = vehiculoNegocio.BuscarVehiculoPorPlaca(MVPlacaBuscarTextBox.Text);
 
                     if (vehiculo.Rows.Count > 0)
@@ -81,7 +86,7 @@ namespace CapaVisual
                 MessageBox.Show($"Error al buscar vehículo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        // Método para guardar la modificación de un vehículo
         private void GuardarV_Click(object sender, EventArgs e)
         {
             try
@@ -91,6 +96,7 @@ namespace CapaVisual
                     Vehiculo vehiculoRepositorio = new Vehiculo(conexionSQL);
                     NVehiculo vehiculoNegocio = new NVehiculo(vehiculoRepositorio);
 
+                    // Modificar un vehículo con los datos ingresados en los TextBox
                     vehiculoNegocio.ModificarVehiculo(
                         MVPlacaTextBox.Text,
                         Convert.ToDecimal(MVValorTextBox.Text),
@@ -113,6 +119,7 @@ namespace CapaVisual
             }
         }
 
+        // Método para eliminar un vehículo
         private void EliminarVehiculo_Click(object sender, EventArgs e)
         {
             try
@@ -122,6 +129,7 @@ namespace CapaVisual
                     Vehiculo vehiculoRepositorio = new Vehiculo(conexionSQL);
                     NVehiculo vehiculoNegocio = new NVehiculo(vehiculoRepositorio);
 
+                    // Eliminar un vehículo con la placa ingresada en el TextBox
                     vehiculoNegocio.EliminarVehiculo(MVPlacaTextBox.Text);
 
                     MessageBox.Show("Vehículo eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -140,6 +148,8 @@ namespace CapaVisual
             }
 
         }
+
+        // Método para limpiar los TextBox
         private void LimpiarTextBoxes()
         {
             MVPlacaBuscarTextBox.Clear();
@@ -152,6 +162,7 @@ namespace CapaVisual
             MVDNITextBox.Clear();
         }
 
+        // Método para cerrar el formulario actual y abrir el formulario de vehículos
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             frmVehiculos formuVehiculos = new frmVehiculos();
